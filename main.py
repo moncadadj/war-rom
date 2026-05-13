@@ -47,7 +47,7 @@ async def read_root(request: Request):
 
 @app.post("/api/consult_agent")
 async def consult_agent(req: AgentRequest):
-    model = genai.GenerativeModel('models/gemini-1.5-flash')
+    model = genai.GenerativeModel('gemini-1.5-flash')
     full_prompt = f"{CONTEXTO_LAB}\n\nActúa como {req.role}.\nDesafío: {req.challenge}"
     try:
         response = model.generate_content(full_prompt)
@@ -57,7 +57,7 @@ async def consult_agent(req: AgentRequest):
 
 @app.post("/api/final_decree")
 async def final_decree(req: DecreeRequest):
-    juez = genai.GenerativeModel('models/gemini-1.5-flash')
+    juez = genai.GenerativeModel('gemini-1.5-flash')
     prompt = f"Sintetiza un plan de acción técnica para RadLeadX basado en:\nNLU: {req.nlu_response}\nOutreach: {req.outreach_response}\nBusiness: {req.business_response}"
     try:
         sintesis = juez.generate_content(prompt)

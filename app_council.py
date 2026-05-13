@@ -140,7 +140,7 @@ Analizamos cómo interpretar señales de intención humana en internet.
 """
 
 def consultar_consejo(rol, desafio):
-    model = genai.GenerativeModel('models/gemini-1.5-flash')
+    model = genai.GenerativeModel('gemini-1.5-flash')
     full_prompt = f"{CONTEXTO_LAB}\n\nActúa como {rol}.\nDesafío: {desafio}"
     try:
         return model.generate_content(full_prompt).text
@@ -202,7 +202,7 @@ if st.button("🧪 INICIAR DELIBERACIÓN", use_container_width=True):
     st.divider()
     st.subheader("⚖️ Dictamen Final del Presidente del Consejo")
     
-    juez = genai.GenerativeModel('models/gemini-1.5-flash')
+    juez = genai.GenerativeModel('gemini-1.5-flash')
     sintesis = juez.generate_content(f"Sintetiza un plan de acción técnica para RadLeadX basado en: {res_nlu} {res_out} {res_biz}").text
     
     st.markdown(f'<div class="final-decree">{sintesis}</div>', unsafe_allow_html=True)
