@@ -8,6 +8,7 @@ st.set_page_config(page_title="RADLEADX | AI Strategy Lab", layout="wide", page_
 
 # Inyección de CSS para emular el prototipo de Stitch
 st.markdown("""
+    
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
     
@@ -97,6 +98,7 @@ st.markdown("""
         border-top: 1px solid #2C2C2E;
     }
     </style>
+
     """, unsafe_allow_html=True)
 
 
@@ -193,12 +195,6 @@ if st.button("🧪 INICIAR DELIBERACIÓN", use_container_width=True):
     juez = genai.GenerativeModel('models/gemini-1.5-flash')
     sintesis = juez.generate_content(f"Sintetiza un plan de acción técnica para RadLeadX basado en: {res_nlu} {res_out} {res_biz}").text
     
-    st.markdown(f'<div class="final-decree">{sintesis}</div>', unsafe_allow_html=True)
-    
-    # Auto-guardado
-    ts = datetime.now().strftime("%Y%m%d_%H%M")
-    with open(f"historial/Estudio_{ts}.md", "w", encoding="utf-8") as f:
-        f.write(f"# DESAFÍO: {desafio_estudio}\n\n{sintesis}") 
     st.markdown(f'<div class="final-decree">{sintesis}</div>', unsafe_allow_html=True)
     
     # Auto-guardado
