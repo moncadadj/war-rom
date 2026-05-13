@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#393939",
+                    "outline-variant": "#414755",
+                    "on-tertiary-fixed": "#310048",
+                    "on-tertiary": "#510074",
+                    "tertiary": "#e8b3ff",
+                    "on-error-container": "#ffdad6",
+                    "inverse-primary": "#005bc1",
+                    "secondary-fixed": "#72fe88",
+                    "on-primary-fixed-variant": "#004493",
+                    "tertiary-fixed-dim": "#e8b3ff",
+                    "primary-fixed": "#d8e2ff",
+                    "inverse-on-surface": "#313030",
+                    "surface": "#131313",
+                    "secondary-fixed-dim": "#53e16f",
+                    "primary-fixed-dim": "#adc6ff",
+                    "error-container": "#93000a",
+                    "surface-variant": "#353534",
+                    "surface-container-low": "#1c1b1b",
+                    "primary": "#adc6ff",
+                    "on-secondary-fixed": "#002107",
+                    "on-primary-container": "#00285c",
+                    "background": "#131313",
+                    "surface-container": "#201f1f",
+                    "surface-tint": "#adc6ff",
+                    "on-secondary-fixed-variant": "#00531c",
+                    "tertiary-fixed": "#f6d9ff",
+                    "on-surface": "#e5e2e1",
+                    "tertiary-container": "#c567f4",
+                    "on-primary-fixed": "#001a41",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-secondary": "#003911",
+                    "surface-container-high": "#2a2a2a",
+                    "primary-container": "#4b8eff",
+                    "on-background": "#e5e2e1",
+                    "error": "#ffb4ab",
+                    "on-tertiary-container": "#460066",
+                    "surface-container-highest": "#353534",
+                    "on-tertiary-fixed-variant": "#7201a2",
+                    "on-surface-variant": "#c1c6d7",
+                    "secondary-container": "#05b046",
+                    "on-error": "#690005",
+                    "on-secondary-container": "#003a11",
+                    "on-primary": "#002e69",
+                    "surface-dim": "#131313",
+                    "outline": "#8b90a0",
+                    "secondary": "#53e16f",
+                    "inverse-surface": "#e5e2e1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "margin-safe": "32px",
+                    "unit": "4px",
+                    "panel-gap": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "label-caps": ["JetBrains Mono"],
+                    "headline-md-mobile": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "data-mono": ["JetBrains Mono"],
+                    "body-main": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "data-mono": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "body-main": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .confidence-cell {
+            width: 8px;
+            height: 16px;
+            margin-right: 2px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #414755;
+            border-radius: 10px;
+        }
+        .heatmap-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style data-stitch-cursor=""></style><style data-stitch-scroll-lock=""></style></head>
+<body class="bg-background text-on-background font-body-main selection:bg-primary selection:text-on-primary">
+<!-- Navigation Drawer -->
+<aside class="fixed left-0 top-0 h-full z-40 flex flex-col pt-20 bg-surface-container-low border-r border-outline-variant w-64 hidden md:flex">
+<div class="px-6 mb-8">
+<h2 class="font-data-mono text-label-caps text-on-surface-variant tracking-widest">INTEL_LOGS_V2.0</h2>
+</div>
+<nav class="flex-1 space-y-1 px-3">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="sensors">sensors</span>
+<span class="font-label-caps text-label-caps">Live Feed</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary font-bold bg-surface-container-high border-l-4 border-secondary translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+<span class="font-label-caps text-label-caps">Historical Logs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+<span class="font-label-caps text-label-caps">Agent Clusters</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-caps text-label-caps">Archive</span>
+</a>
+</nav>
+</aside>
+<!-- Top App Bar -->
+<header class="fixed top-0 left-0 right-0 h-16 bg-surface border-b border-outline-variant flex justify-between items-center px-gutter z-50">
+<div class="flex items-center gap-3"><img alt="RADLEADX Logo" class="h-10 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDp4VAAiB-nMITHXS6dVFxd1aem7RY_KbsAFA64os4l9rfP0RfDvwRFVStLo-F0if19tV9_qVZtW0f5nYYRvMZzasV3zB2QJEWWlcKnE9AsC_JLMDTiQrWrR9uEhkvSeg9cgE-7RE9bxEmuarZ_GJlPrDMV-au4JHW9M4wh78n2pPcA3632aPD3Qtpo-MAEZj51rbJfUqwsZtPVF0S_zAzIt7S7W9NsMijtjqic3XNL0JHhUF8ifeB5VJHp3Eb0lKcTYXPTw5xzURE"/>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tighter text-primary">RADLEADX // COMMAND</h1></div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-surface-bright transition-colors p-2 rounded-lg">
+<span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="md:pl-64 pt-16 min-h-screen">
+<div class="p-gutter space-y-panel-gap max-w-7xl mx-auto">
+<!-- Input Module: Conceptos de Estudio -->
+<section class="bg-surface-container rounded-xl p-6 border border-outline-variant shadow-sm">
+<div class="flex items-center gap-4">
+<div class="flex-1 relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="search">search</span>
+<input id="study-problem-input" class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-4 pl-12 pr-4 font-data-mono text-data-mono text-primary focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="ENTER ANALYSIS PROTOCOL: Conceptos de Estudio..." type="text"/>
+</div>
+<button id="execute-btn" class="bg-primary text-on-primary font-label-caps text-label-caps px-8 py-4 rounded-lg hover:opacity-80 active:scale-95 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+                        EXECUTE_CMD
+                    </button>
+</div>
+</section>
+<!-- Agent Section: The Offices -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-panel-gap">
+<!-- NLU Office -->
+<div class="bg-surface-container-low rounded-xl border border-outline-variant flex flex-col h-[400px]">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<h3 class="font-label-caps text-label-caps text-primary">OFFICE_NLU</h3>
+</div>
+<span class="font-data-mono text-[10px] text-outline">SIG_STRENGTH: 98.2%</span>
+</div>
+<div id="nlu-office-content" class="flex-1 p-4 font-data-mono text-[12px] overflow-y-auto custom-scrollbar space-y-2 bg-surface-container-lowest whitespace-pre-wrap">
+<p class="text-on-surface opacity-60">Awaiting input...</p>
+</div>
+<div class="p-4 bg-surface-container flex items-center gap-4">
+<div class="flex-1 bg-surface-container-high h-2 rounded-full overflow-hidden flex">
+<div class="bg-primary w-[92%] h-full"></div>
+</div>
+<span class="font-data-mono text-label-caps text-primary">92%</span>
+</div>
+</div>
+<!-- Outreach Office -->
+<div class="bg-surface-container-low rounded-xl border border-outline-variant flex flex-col h-[400px]">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<h3 class="font-label-caps text-label-caps text-secondary">OFFICE_OUTREACH</h3>
+</div>
+<span class="font-data-mono text-[10px] text-outline">UPLINK_STATUS: ACTIVE</span>
+</div>
+<div id="outreach-office-content" class="flex-1 p-4 font-data-mono text-[12px] overflow-y-auto custom-scrollbar space-y-2 bg-surface-container-lowest whitespace-pre-wrap">
+<p class="text-on-surface opacity-60">Awaiting input...</p>
+</div>
+<div class="p-4 bg-surface-container flex items-center gap-4">
+<div class="flex-1 bg-surface-container-high h-2 rounded-full overflow-hidden flex">
+<div class="bg-secondary w-[78%] h-full"></div>
+</div>
+<span class="font-data-mono text-label-caps text-secondary">78%</span>
+</div>
+</div>
+<!-- Business Office -->
+<div class="bg-surface-container-low rounded-xl border border-outline-variant flex flex-col h-[400px]">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+<h3 class="font-label-caps text-label-caps text-tertiary">OFFICE_BUSINESS</h3>
+</div>
+<span class="font-data-mono text-[10px] text-outline">ROI_PROJ: +14.2%</span>
+</div>
+<div id="business-office-content" class="flex-1 p-4 font-data-mono text-[12px] overflow-y-auto custom-scrollbar space-y-2 bg-surface-container-lowest whitespace-pre-wrap">
+<p class="text-on-surface opacity-60">Awaiting input...</p>
+</div>
+<div class="p-4 bg-surface-container flex items-center gap-4">
+<div class="flex-1 bg-surface-container-high h-2 rounded-full overflow-hidden flex">
+<div class="bg-tertiary w-[89%] h-full"></div>
+</div>
+<span class="font-data-mono text-label-caps text-tertiary">89%</span>
+</div>
+</div>
+</div>
+<!-- Heatmap Visualization -->
+<section class="bg-surface-container rounded-xl p-6 border border-outline-variant">
+<div class="flex justify-between items-center mb-4">
+<h4 class="font-label-caps text-label-caps text-outline">MARKET_DENSITY_HEATMAP</h4>
+<div class="flex gap-4">
+<div class="flex items-center gap-2"><div class="w-3 h-3 bg-primary opacity-20 rounded-sm"></div><span class="text-[10px] font-data-mono">LOW</span></div>
+<div class="flex items-center gap-2"><div class="w-3 h-3 bg-primary opacity-100 rounded-sm"></div><span class="text-[10px] font-data-mono">PEAK</span></div>
+</div>
+</div>
+<div class="heatmap-grid h-24">
+<!-- Iterative Heatmap Blocks -->
+<div class="bg-primary opacity-10 rounded-sm"></div><div class="bg-primary opacity-30 rounded-sm"></div><div class="bg-primary opacity-20 rounded-sm"></div><div class="bg-primary opacity-50 rounded-sm"></div>
+<div class="bg-primary opacity-80 rounded-sm"></div><div class="bg-primary opacity-100 rounded-sm"></div><div class="bg-primary opacity-90 rounded-sm"></div><div class="bg-primary opacity-40 rounded-sm"></div>
+<div class="bg-primary opacity-20 rounded-sm"></div><div class="bg-primary opacity-10 rounded-sm"></div><div class="bg-primary opacity-30 rounded-sm"></div><div class="bg-primary opacity-60 rounded-sm"></div>
+<div class="bg-primary opacity-20 rounded-sm"></div><div class="bg-primary opacity-30 rounded-sm"></div><div class="bg-primary opacity-20 rounded-sm"></div><div class="bg-primary opacity-10 rounded-sm"></div>
+<div class="bg-primary opacity-40 rounded-sm"></div><div class="bg-primary opacity-70 rounded-sm"></div><div class="bg-primary opacity-60 rounded-sm"></div><div class="bg-primary opacity-20 rounded-sm"></div>
+<div class="bg-primary opacity-10 rounded-sm"></div><div class="bg-primary opacity-40 rounded-sm"></div><div class="bg-primary opacity-20 rounded-sm"></div><div class="bg-primary opacity-10 rounded-sm"></div>
+<div class="bg-primary opacity-90 rounded-sm"></div><div class="bg-primary opacity-80 rounded-sm"></div><div class="bg-primary opacity-70 rounded-sm"></div><div class="bg-primary opacity-40 rounded-sm"></div>
+<div class="bg-primary opacity-20 rounded-sm"></div><div class="bg-primary opacity-10 rounded-sm"></div><div class="bg-primary opacity-20 rounded-sm"></div><div class="bg-primary opacity-10 rounded-sm"></div>
+<div class="bg-primary opacity-20 rounded-sm"></div><div class="bg-primary opacity-30 rounded-sm"></div><div class="bg-primary opacity-50 rounded-sm"></div><div class="bg-primary opacity-80 rounded-sm"></div>
+<div class="bg-primary opacity-100 rounded-sm"></div><div class="bg-primary opacity-90 rounded-sm"></div><div class="bg-primary opacity-70 rounded-sm"></div><div class="bg-primary opacity-30 rounded-sm"></div>
+<div class="bg-primary opacity-20 rounded-sm"></div><div class="bg-primary opacity-10 rounded-sm"></div><div class="bg-primary opacity-10 rounded-sm"></div><div class="bg-primary opacity-10 rounded-sm"></div>
+<div class="bg-primary opacity-20 rounded-sm"></div><div class="bg-primary opacity-30 rounded-sm"></div><div class="bg-primary opacity-20 rounded-sm"></div><div class="bg-primary opacity-10 rounded-sm"></div>
+</div>
+</section>
+<!-- Resolution Module: Dictamen Final -->
+<section class="bg-surface rounded-2xl border border-outline-variant overflow-hidden shadow-2xl">
+<div class="bg-surface-bright px-gutter py-4 border-b border-outline-variant flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="description">description</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">DICTAMEN FINAL: OPERATIONAL_STRATEGY_X1</h2>
+</div>
+<button class="text-primary hover:bg-primary-container/20 px-4 py-2 rounded-lg transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+<span class="font-label-caps text-label-caps">EXPORT_PDF</span>
+</button>
+</div>
+<div class="p-gutter grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<!-- Main Text Body -->
+<div class="md:col-span-3 space-y-6">
+<div id="final-decree-content" class="prose prose-invert max-w-none whitespace-pre-wrap">
+<h3 class="text-on-surface font-headline-md text-headline-md mb-2">Executive Summary</h3>
+<p class="text-on-surface-variant font-body-main">Waiting for final resolution...</p>
+</div>
+</div>
+<!-- Citations & Sources Sidebar -->
+<div class="space-y-gutter">
+<div class="bg-surface-container-high rounded-xl p-4">
+<h4 class="font-label-caps text-label-caps text-outline mb-4">CITATIONS_&amp;_SOURCES</h4>
+<div class="space-y-4">
+<div class="bg-surface-container p-3 rounded-lg border border-outline-variant">
+<p class="text-xs font-data-mono text-primary">[SIG-A2]</p>
+<p class="text-[12px] text-on-surface-variant leading-tight">Decentralized Signal Processing in High-Volatility Markets (2024)</p>
+</div>
+<div class="bg-surface-container p-3 rounded-lg border border-outline-variant">
+<p class="text-xs font-data-mono text-secondary">[LOG-884]</p>
+<p class="text-[12px] text-on-surface-variant leading-tight">Outreach Agent Log Archive: Intent Extraction Metrics v2.1</p>
+</div>
+<div class="bg-surface-container p-3 rounded-lg border border-outline-variant">
+<p class="text-xs font-data-mono text-tertiary">[MKT-DATA]</p>
+<p class="text-[12px] text-on-surface-variant leading-tight">Quarterly Market Volatility Report - Industrial Intelligence Div.</p>
+</div>
+</div>
+</div>
+<div class="bg-primary-container p-4 rounded-xl">
+<h4 class="font-label-caps text-label-caps text-on-primary-container mb-2">SYSTEM_CONFIDENCE</h4>
+<div class="flex items-end gap-1 mb-2">
+<div class="confidence-cell bg-on-primary-container"></div>
+<div class="confidence-cell bg-on-primary-container"></div>
+<div class="confidence-cell bg-on-primary-container"></div>
+<div class="confidence-cell bg-on-primary-container"></div>
+<div class="confidence-cell bg-on-primary-container"></div>
+<div class="confidence-cell bg-on-primary-container"></div>
+<div class="confidence-cell bg-on-primary-container opacity-30"></div>
+<div class="confidence-cell bg-on-primary-container opacity-30"></div>
+</div>
+<p class="text-2xl font-bold text-on-primary-container">88.5%</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface-container-highest flex justify-around items-center px-4 py-2 border-t border-outline-variant shadow-lg md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl p-2 scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="query_stats">query_stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2" href="#">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+</a>
+</nav>
+
+<script>
+    document.getElementById('execute-btn').addEventListener('click', async () => {
+        const problemInput = document.getElementById('study-problem-input').value;
+        if (!problemInput.trim()) return;
+
+        const nluContent = document.getElementById('nlu-office-content');
+        const outreachContent = document.getElementById('outreach-office-content');
+        const businessContent = document.getElementById('business-office-content');
+        const finalContent = document.getElementById('final-decree-content');
+
+        nluContent.innerHTML = '<p class="text-primary opacity-60 animate-pulse">Processing NLU query...</p>';
+        outreachContent.innerHTML = '<p class="text-secondary opacity-60 animate-pulse">Processing Outreach query...</p>';
+        businessContent.innerHTML = '<p class="text-tertiary opacity-60 animate-pulse">Processing Business query...</p>';
+        finalContent.innerHTML = '<h3 class="text-on-surface font-headline-md text-headline-md mb-2">Executive Summary</h3><p class="text-on-surface-variant font-body-main animate-pulse">Waiting for agent cluster to resolve...</p>';
+
+        const callAgent = async (role, contentElement, colorClass) => {
+            try {
+                const response = await fetch('/api/consult_agent', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ role, challenge: problemInput })
+                });
+                const data = await response.json();
+                contentElement.innerHTML = `<p class="text-on-surface ${colorClass}">${data.result || 'Error'}</p>`;
+                return data.result;
+            } catch (e) {
+                contentElement.innerHTML = `<p class="text-error">Error communicating with agent.</p>`;
+                return null;
+            }
+        };
+
+        const [nluResult, outreachResult, businessResult] = await Promise.all([
+            callAgent('Especialista en NLU y Semántica de Intención', nluContent, 'text-primary'),
+            callAgent('Estratega de Conversión Contextual', outreachContent, 'text-secondary'),
+            callAgent('Arquitecto de Monetización B2B', businessContent, 'text-tertiary')
+        ]);
+
+        if (nluResult && outreachResult && businessResult) {
+            finalContent.innerHTML = '<h3 class="text-on-surface font-headline-md text-headline-md mb-2">Executive Summary</h3><p class="text-on-surface-variant font-body-main animate-pulse">Synthesizing final strategy...</p>';
+            try {
+                const decreeResponse = await fetch('/api/final_decree', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        nlu_response: nluResult,
+                        outreach_response: outreachResult,
+                        business_response: businessResult
+                    })
+                });
+                const decreeData = await decreeResponse.json();
+                finalContent.innerHTML = `<div class="text-on-surface-variant font-body-main">${decreeData.result}</div>`;
+            } catch (e) {
+                finalContent.innerHTML = `<p class="text-error">Error generating final decree.</p>`;
+            }
+        }
+    });
+</script>
+</body></html>
