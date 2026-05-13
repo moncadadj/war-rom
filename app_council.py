@@ -149,24 +149,34 @@ def consultar_consejo(rol, desafio):
 
 # --- 4. ESTRUCTURA VISUAL DEL WAR ROOM ---
 
-# Sidebar: Historial persistente
-with st.sidebar:
-    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/2048px-Angular_full_color_logo.svg.png", width=50) # Placeholder logo
-    st.title("Logs de Sesión")
-    st.markdown("---")
-    logs = sorted(os.listdir("historial"), reverse=True)
-    for log in logs[:8]:
-        if st.button(f"📄 {log}", key=log, use_container_width=True):
-            with open(f"historial/{log}", "r", encoding="utf-8") as f:
-                st.info(f.read())
+# Top Horizontal Menu
+menu_col1, menu_col2, menu_col3 = st.columns([1, 6, 1])
 
-# Título Principal
-st.markdown('<h1 style="color:#f0f6fc;">🏛️ RADLEADX <span style="color:#ff4b4b;">Strategy Lab</span></h1>', unsafe_allow_html=True)
-st.caption("Entorno Privado de I+D para la Optimización de RadLogic")
+with menu_col1:
+    # Placeholder logo for now since previous base64 images are missing in /tmp
+    # Will use a clean unicode/emoji representation or external URL for aesthetics
+    st.markdown("<h3>⚡ RADLEADX</h3>", unsafe_allow_html=True)
+
+with menu_col2:
+    st.markdown('<h1 style="color:#f0f6fc; text-align: center; margin-top: -10px;">🏛️ RADLEADX <span style="color:#ff4b4b;">Strategy Lab</span></h1>', unsafe_allow_html=True)
+
+with menu_col3:
+    with st.popover("📜 Historial de Sesión", use_container_width=True):
+        st.markdown("**Logs Recientes**")
+        logs = sorted(os.listdir("historial"), reverse=True)
+        if not logs:
+            st.caption("No hay logs disponibles.")
+        for log in logs[:8]:
+            if st.button(f"📄 {log}", key=log, use_container_width=True):
+                with open(f"historial/{log}", "r", encoding="utf-8") as f:
+                    st.info(f.read())
+
+st.caption("<div style='text-align: center; margin-bottom: 20px;'>Entorno Privado de I+D para la Optimización de RadLogic</div>", unsafe_allow_html=True)
 
 # Módulo de Entrada (Stitch Style)
-desafio_estudio = st.text_area("Describa el concepto o falla estratégica a analizar por el consejo:", 
-                               placeholder="Ej: Análisis de señales de intención en foros de tecnología...")
+# Matching the 'DEFINE STUDY PROBLEM: [INPUT PARAMETERS]...' aesthetic
+desafio_estudio = st.text_input("DEFINE STUDY PROBLEM:", 
+                               placeholder="[INPUT PARAMETERS]...", label_visibility="collapsed")
 
 if st.button("🧪 INICIAR DELIBERACIÓN", use_container_width=True):
     # FASE: OFICINAS DE AGENTES
@@ -200,4 +210,4 @@ if st.button("🧪 INICIAR DELIBERACIÓN", use_container_width=True):
     # Auto-guardado
     ts = datetime.now().strftime("%Y%m%d_%H%M")
     with open(f"historial/Estudio_{ts}.md", "w", encoding="utf-8") as f:
-        f.write(f"# DESAFÍO: {desafio_estudio}\n\n{sintesis}")
+        f.write(f"# DESAFÍO: {desafio_estudio}\n\n{sintesis}") 
