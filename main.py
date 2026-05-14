@@ -2,11 +2,13 @@ import os
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 import google.generativeai as genai
 
 app = FastAPI()
+
+# Root directory for absolute path resolution (fixes Vercel serverless paths)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Configuration
 def obtener_llave():
@@ -24,7 +26,6 @@ if api_key:
 else:
     print("Warning: No Gemini API Key found.")
 
-templates = Jinja2Templates(directory="templates")
 
 CONTEXTO_LAB = """
 Eres un Asesor Senior de RADLEADX.
@@ -42,8 +43,11 @@ class DecreeRequest(BaseModel):
     business_response: str
 
 @app.get("/", response_class=HTMLResponse)
-async def read_root(request: Request):
-    return templates.TemplateResponse(request=request, name="index.html")
+async def read_root():
+    template_path = os.path.join(BASE_DIR, "templates", "index.html")
+    with open(template_path, "r", encoding="utf-8") as f:
+        html_content = f.read()
+    return HTMLResponse(content=html_content)
 
 @app.post("/api/consult_agent")
 async def consult_agent(req: AgentRequest):
