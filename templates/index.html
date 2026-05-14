@@ -351,7 +351,7 @@
 
         const callAgent = async (role, contentElement, colorClass) => {
             try {
-                const response = await fetch('/api/consult_agent', {
+                const response = await fetch('/consult_agent', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ role, challenge: problemInput })
@@ -374,7 +374,7 @@
         if (nluResult && outreachResult && businessResult) {
             finalContent.innerHTML = '<h3 class="text-on-surface font-headline-md text-headline-md mb-2">Executive Summary</h3><p class="text-on-surface-variant font-body-main animate-pulse">Synthesizing final strategy...</p>';
             try {
-                const decreeResponse = await fetch('/api/final_decree', {
+                const decreeResponse = await fetch('/final_decree', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({

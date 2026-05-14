@@ -1,5 +1,4 @@
-streamlit
-google-generativeai
 fastapi
 uvicorn
-jinja2
+pydantic
+google-generativeai

@@ -8,17 +8,12 @@ import google.generativeai as genai
 app = FastAPI()
 
 # Root directory for absolute path resolution (fixes Vercel serverless paths)
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Configuration
 def obtener_llave():
     api_key_env = os.environ.get("GEMINI_API_KEY")
-    if api_key_env:
-        return api_key_env
-    if os.path.exists("api_key.txt"):
-        with open("api_key.txt", "r") as f:
-            return f.read().strip()
-    return None
+    return api_key_env
 
 api_key = obtener_llave()
 if api_key:
@@ -49,7 +44,7 @@ async def read_root():
         html_content = f.read()
     return HTMLResponse(content=html_content)
 
-@app.post("/api/consult_agent")
+@app.post("/consult_agent")
 async def consult_agent(req: AgentRequest):
     model = genai.GenerativeModel('gemini-1.5-flash')
     full_prompt = f"{CONTEXTO_LAB}\n\nActúa como {req.role}.\nDesafío: {req.challenge}"
@@ -59,7 +54,7 @@ async def consult_agent(req: AgentRequest):
     except Exception as e:
         return {"result": f"Error en el agente: {str(e)}"}
 
-@app.post("/api/final_decree")
+@app.post("/final_decree")
 async def final_decree(req: DecreeRequest):
     juez = genai.GenerativeModel('gemini-1.5-flash')
     prompt = f"Sintetiza un plan de acción técnica para RadLeadX basado en:\nNLU: {req.nlu_response}\nOutreach: {req.outreach_response}\nBusiness: {req.business_response}"
